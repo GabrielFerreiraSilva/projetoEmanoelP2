@@ -12,6 +12,7 @@ public class Main {
         frame.setContentPane(pnlMain.getPnlMain());
         frame.pack();
         frame.setVisible(true);
+        frame.setLocationRelativeTo(null);
 
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
