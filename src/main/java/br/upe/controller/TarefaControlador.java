@@ -4,15 +4,22 @@ import br.upe.model.Tarefa;
 import br.upe.model.TarefaTableModel;
 
 import javax.swing.event.TableModelListener;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.io.*;
-import java.util.Scanner;
+
+//Importação das bibliotecas File e FileWriter
+import java.io.File;
+import java.io.FileWriter;
 
 public class TarefaControlador {
 
     // Atributos
     private TarefaTableModel tarefaTableModel;
+
+    //Arquivo de texto que armazenará as atividades ativas
+    File txtTarefasAtivas = new File("tarefasAtivas.txt");
 
     //Construtor
     public TarefaControlador() {
@@ -23,20 +30,24 @@ public class TarefaControlador {
     public void adicionarTarefaAtiva(Tarefa tarefa) {
         this.tarefaTableModel.getTarefasAtivas().add(tarefa);
 
+        //Cada nova tarefa é adicionada à lista de tarefas ativas
+        //O código abaixo irá inserir a descrição da tarefa em um arquivo de texto
+
         try{
 
-            FileWriter escritor = new FileWriter("tarefasAtivas.txt", true);
-
+            //Declaração de um FileWriter para adicionar a tarefa ao arquivo
+            FileWriter escritor = new FileWriter(txtTarefasAtivas, true);
+            //O FileWriter escreve no arquivo a descrição da tarefa
             escritor.write(tarefa.getDescricao() + "\n");
-
             escritor.close();
 
         }
-        catch(Exception e){
+        catch(IOException e){
 
             System.out.println(e.getMessage());
 
         }
+
 
     }
 
