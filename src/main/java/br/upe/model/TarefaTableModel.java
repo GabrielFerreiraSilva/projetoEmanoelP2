@@ -128,6 +128,22 @@ public class TarefaTableModel extends AbstractTableModel {
             } else {
                 tarefasFinalizadas.remove(tarefa);
 
+                // Código que adiciona a tarefa removida no arquivo de tarefas ativas
+                try {
+                    Scanner leitor = new Scanner(txtTarefasFinalizadas);
+                    FileWriter escritor = new FileWriter(txtTarefasAtivas,true);
+                    while(leitor.hasNextLine()){
+                        String linha = leitor.nextLine();
+                        if (linha.equals(tarefa.getDescricao())){
+                            escritor.write(linha + "\n");
+                        }
+                    }
+                    escritor.close();
+
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
 
                 //Código que remove a tarefa do arquivo de tarefas finalizadas
                 //Para isso é necessário o uso de um arquivo auxiliar
